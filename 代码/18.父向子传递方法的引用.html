@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.16.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- v-bind 属性绑定，只能是 父 向 子 传递 普通数据 -->
+    <!-- 如果父向子，传递 方法的引用，必须使用 v-on 的事件绑定机制 -->
+    <my-com1 @func1="show"></my-com1>
+  </div>
+
+  <script>
+    Vue.component('my-com1', {
+      template: `<div>
+        <h3>这是一个子组件</h3>
+        <button @click="myclick">按钮</button>
+      </div>`,
+      methods: {
+        myclick() {
+          // 先输出 ok 字符串
+          console.log('ok')
+          // 再调用一下，父传递过来的 func 方法
+          // this.$emit('父传递过来的方法名称')
+          this.$emit('func1')
+        }
+      }
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {
+        show() {
+          console.log('有人调用了父中的 show 方法')
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

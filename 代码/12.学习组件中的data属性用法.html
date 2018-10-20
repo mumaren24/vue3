@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.16.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    {{msgParent}}
+    <my-home></my-home>
+  </div>
+
+  <script>
+
+    // 组件内部，也有自己的私有数据
+    Vue.component('my-home', {
+      template: '<div @click="test">{{msg | addStr}}</div>',
+      /*The "data" option should be a function that returns a per-instance value in component definitions. 
+      经过解读：得到一个信息提示：组件中的 data 必须定义为一个 function */
+      // data: {}
+      /*data functions should return an object:
+      经过解读：得到一个信息提示：组件中的 data 方法中，必须 返回一个 对象*/
+      data() {
+        // 组件中，私有的数据，都要挂载给 这个 被 return 出去的对象
+        return {
+          msg: '这是组件中的数据'
+        }
+      },
+      methods: {
+        test() {
+          console.log('有人调用了组件的 test 方法')
+        }
+      },
+      filters: {
+        addStr: function (originVal) {
+          return originVal + '~~~~'
+        }
+      },
+      created() {
+        console.log('组件的 created 生命周期函数被触发了！')
+      }
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          msgParent: '父组件的数据'
+        }
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

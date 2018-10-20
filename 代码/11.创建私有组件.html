@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.16.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <my-com1></my-com1>
+    <my-com2></my-com2>
+  </div>
+
+  <hr>
+
+  <div id="app2">
+    <my-com1></my-com1>
+    <!-- <my-com2></my-com2> -->
+  </div>
+
+  <script>
+    // 这是全局组件，所有的VM实例都共享全局组件
+    Vue.component('my-com1', {
+      template: '<h3>这是全局的组件</h3>'
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm1 = new Vue({
+      el: '#app',
+      data: {},
+      methods: {},
+      filters: {}, // 私有过滤器
+      components: {
+        // 私有组件
+        // '': {} // 前面单引号包裹的，是私有组件的名称，后面的对象，是是有组件的配置对象
+        // 对于 components 创建的子组件来说，在创建子组件的时候，就已经确立了父子关系
+        'my-com2': {
+          template: '<h5>这是独属于VM1的私有子组件</h5>'
+        }
+      }
+    });
+
+    const vm2 = new Vue({
+      el: '#app2'
+    })
+  </script>
+</body>
+
+</html>

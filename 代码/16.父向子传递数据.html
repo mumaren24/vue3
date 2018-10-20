@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.16.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    {{msg}}
+    <hr>
+    <!-- 父向子传值，用的是 属性绑定机制； -->
+    <!-- 父向子传值的时候，自定义属性的名称，必须都是小写的 -->
+    <my-com1 :pmsg1="msg"></my-com1>
+  </div>
+
+  <script>
+
+    Vue.component('my-com1', {
+      template: `<div>组件 my-com1 --- {{pmsg1}}</div>`,
+      props: ['pmsg1']
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '这是父组件的消息'
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

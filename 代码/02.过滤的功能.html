@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.16.js"></script>
+  <link rel="stylesheet" href="./lib/bootstrap-3.3.7.css">
+</head>
+
+<body>
+  <div id="app">
+
+    <div>
+      <input v-model="keywords" type="text" class="form-control" style="width: 300px; margin: 10px;">
+    </div>
+
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>编号</th>
+          <th>名称</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 思路的改造：不要使用使用v-for in list 数组，因为 list 数组中的数据都是固定的； -->
+        <!-- 让 v-for 在循环的时候， in  一个方法的调用，方法的返回值，就是我们过滤完毕后的结果；  -->
+        <!-- 这个 被 v-for 所 in  的方法，它的作用，就是专门根据 keywords 过滤 数据的 -->
+        <tr v-for="item in filterByKeywords()" :key="item.id">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+
+  <script>
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        keywords: '',
+        list: [
+          { id: 1, name: '奔驰' },
+          { id: 2, name: '长安奔奔' },
+          { id: 3, name: '宝马' },
+          { id: 4, name: '千里马' }
+        ]
+      },
+      methods: {
+        // 根据关键字，过滤得到 符合条件的数据，并把 符合条件的数据， 以数组的形式，return 出去
+        filterByKeywords() {
+          const newArr = this.list.filter(item => {
+            if (item.name.includes(this.keywords)) {
+              return true
+            }
+          })
+          return newArr
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

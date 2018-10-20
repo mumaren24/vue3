@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.16.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 父向子传递普通的数据，用的是属性绑定的形式 -->
+    <my-com1 :pmsg="obj" :pinfo="info"></my-com1>
+  </div>
+
+  <script>
+
+    Vue.component('my-com1', {
+      template: `<div>组件 my-com1  ---- {{pmsg.name}} ---- {{pmsg.age}} --- {{pinfo}}</div>`,
+      props: ['pmsg', 'pinfo'] // 父向子传递的普通数据，字符串、数值、布尔值、对象，子组件如果想要使用，必须先 用 props 来接收一下
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        obj: { name: 'zs', age: 22 },
+        info: '哈哈哈哈'
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    const arr = [1, 2, 3, 4, 5]
+    // filter 过滤数组，筛选出符合条件的每一项，并返回一个符合条件的新数组；不会修改原数组
+    // map 方法，是对原数组中的每一项，做个操作；并把 操作的结果返回，从而得到一个新数组，新数组中的每一项，都是 操作之后的结果； map 也不会修改元数组；
+
+    /* const newArr = []
+    arr.forEach(item => {
+      newArr.push(item * 2)
+    })
+    console.log(newArr) */
+
+    // map   地图    引申    映射
+    const newArr = arr.map(item => item * 2)
+
+    console.log(newArr)
+    console.log(arr)
+
+  </script>
+</body>
+
+</html>

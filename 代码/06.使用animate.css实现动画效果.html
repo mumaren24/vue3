@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.16.js"></script>
+  <!-- 2. 导入样式表 -->
+  <link rel="stylesheet" href="./lib/animate.css">
+</head>
+
+<body>
+  <div id="app">
+    <button @click="flag=!flag">Toggle</button>
+    <!-- 1. 把 要动画的元素包裹起来 -->
+    <!-- enter-active-class 指定入场时候的动画类名 -->
+    <!-- leave-active-class 指定离场时候的动画类名 -->
+    <transition enter-active-class="fadeInDown" leave-active-class="fadeOutDown">
+      <!-- 注意：一定要为 被动画控制的元素，添加 class 类名 animated  -->
+      <h3 v-if="flag" class="animated">奔跑吧，耀哥</h3>
+    </transition>
+  </div>
+
+  <script>
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        flag: false
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

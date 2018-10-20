@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.16.js"></script>
+  <style>
+    #ball {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="flag=!flag">加入购物车</button>
+    <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+      <div id="ball" v-show="flag"></div>
+    </transition>
+  </div>
+
+  <script>
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        flag: false
+      },
+      methods: {
+        // 入场之前，设置小球的 初始状态
+        beforeEnter(el) {
+          // el 是一个原生的DOM对象，表示 要被动画控制的那个元素
+          // 设置小球动画开始之前，小球的初始位置
+          el.style.transform = 'translate(0,0)';
+        },
+        // 入场之后，设置小球的 终止状态 以及 小球的 过渡效果
+        enter(el, done) {
+          el.offsetTop // 这一行代码，没有实质性的作用；只是为了让小球能有动画效果
+          // 设置小球动画结束之后，要到达的位置
+          el.style.transform = 'translate(300px,300px)';
+          el.style.transition = 'all 2s ease'
+          // done 是一个回调函数，这个 done() 就是 afterEnter 函数的一个引用；
+          done()
+        },
+        // 动画完成以后，重置相关的动画数据
+        afterEnter() {
+          // 强制跳过后半场动画
+          this.flag = false
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.16.js"></script>
+</head>
+
+<body>
+  <!-- 2. 创建一个 容器，将来，这个容器内的所有内容，都会被Vue控制，容器内所有合法的Vue指令，都会被Vue解析执行 -->
+  <div id="app">
+    <!-- 把 定义好的组件名称，以标签形式引用到页面上 -->
+    <my-com1></my-com1>
+  </div>
+
+  <div id="app2">
+    <!-- 这里的 my-com1 是以子组件的形式，被放到了 VM2 所控制的区域中 -->
+    <!-- 对于全局定义的组件来说，使用的时候，才确定了vm实例和组件之间的父子关系； -->
+    <my-com1></my-com1>
+  </div>
+
+  <script>
+    // Vue.filter('过滤器的名字', function (originVal) { /* return 一个 值*/ })
+
+    // 创建全局组件的语法：
+    // Vue.component('前缀-组件的名称', {/* 配置对象 template, data, methods, filters,  一系列的生命周期函数 */ })
+
+    // 定义一个全局的 my-com1 组件
+    Vue.component('my-com1', {
+      template: '<h3>这是我们创建的第一个自定义全局组件</h3>' // 这个 my-com1 组件的UI结构，就是 template 所指定的UI结构
+    })
+
+    const vm = new Vue({
+      el: '#app',
+      data: {}, // 实例中的数据
+      methods: {}, // 定义处理函数
+      filters: {}, // 定义私有过滤器的
+      // template: ''   来指定模板的
+      // ...... 一系列的生命周期函数
+    })
+
+    const vm2 = new Vue({
+      el: '#app2',
+      data: {},
+      methods: {}
+    })
+  </script>
+</body>
+
+</html>

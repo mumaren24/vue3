@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 这是一个组件的构造函数
+    function Component(obj) {
+      this.$data = obj.data
+    }
+
+    const com1 = new Component({
+      data: {
+        msg: '111'
+      }
+    })
+
+    const com2 = new Component({
+      data: {
+        msg: '222'
+      }
+    })
+
+    console.log(com1.$data.msg)
+    console.log(com2.$data.msg)
+  </script>
+</body>
+
+</html>

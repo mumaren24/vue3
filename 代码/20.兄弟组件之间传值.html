@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.16.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <my-com1></my-com1>
+    <hr>
+    <my-com2></my-com2>
+  </div>
+
+  <script>
+    // 使用 EventBus
+    // 1. 先 new 一个 空的 Vue 实例
+    const bus = new Vue()
+
+    Vue.component('my-com1', {
+      data() { return { msg: '这是组件1的数据' } },
+      template: `<div>组件1
+        <button @click="sendMsg">把自己的数据，传递给 兄弟组件2</button></div>`,
+      methods: {
+        sendMsg() {
+          // 发送数据的这一方，需要使用 bus.$emit('方法名', 要传递出去的数据) 来触发一个方法的调用
+          bus.$emit('aa', this.msg)
+        }
+      }
+    })
+
+    Vue.component('my-com2', {
+      data() { return { msgFormBrother: '' } },
+      template: `<div>组件2 --- {{msgFormBrother}}</div>`,
+      created() {
+        // 接收数据的这一方，需要在 created 生命周期函数中，使用 bus.$on('方法名', (传递过来的数据) => {})
+        // 注意：这里 的处理函数，要定义成监听函数
+        bus.$on('aa', (msg) => {
+          console.log(msg)
+          this.msgFormBrother = msg
+        })
+      }
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

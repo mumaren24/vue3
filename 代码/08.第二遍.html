@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.16.js"></script>
+  <style>
+    #ball {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="flag=!flag">Toggle</button>
+    <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+      <div id="ball" v-show="flag"></div>
+    </transition>
+  </div>
+
+  <script>
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        flag: false
+      },
+      methods: {
+        // 设置小球的入场状态
+        beforeEnter(el) {
+          el.style.transform = "translate(100px,100px)"
+        },
+        // 设置小球的入场完成后的状态和动画效果
+        enter(el, done) {
+          el.offsetWidth
+          el.style.transform = "translate(150px,500px)"
+          el.style.transition = "all 2s cubic-bezier(.72,-0.55,.41,1.12)"
+          done()
+        },
+        // 每当入场动画完成的一瞬间，立即把 falg 重置 false
+        afterEnter() {
+          this.flag = false
+        }
+      }
+    });
+  </script>
+</body>
+<!-- eslint 插件 -->
+
+</html>

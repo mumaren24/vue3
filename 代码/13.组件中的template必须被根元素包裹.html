@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.16.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <my-com1></my-com1>
+  </div>
+
+  <script>
+
+    Vue.component('my-com1', {
+      // 小注意：今后，只要是组件，那么，就必须保证 组件的所有UI，都被唯一的根元素进行包裹；
+      template: `<div>
+          <h1>大大的h1</h1>
+          <h1>0000000</h1>
+      </div>`,
+      // data: {}
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>
